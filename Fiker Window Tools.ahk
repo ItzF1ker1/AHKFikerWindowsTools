@@ -287,7 +287,7 @@ LoadMainFWTGui:
     Gui, MainFWTGui:Font, s16
     Gui, MainFWTGui:Add, Text, x22 y85 c%GuiColorFont%, Current Version: %Version%%SubVer%
     Gui, MainFWTGui:Font, s12
-    Gui, MainFWTGui:Add, Button, w524, Version 1.0.0
+    Gui, MainFWTGui:Add, Button, w524, Version 1.0.0 - 28/09/2022
     Gui, MainFWTGui:Tab, 6 ; About Tab
     Gui, MainFWTGui:Add, Text, x24 y44 c%GuiColorFont%, About
     Gui, MainFWTGui:Font, s20
@@ -307,7 +307,7 @@ LoadMainFWTGui:
     Gui, MainFWTGui:Add, Button, w272, Reload Script
     Gui, MainFWTGui:Add, Button, x288 y419 w272, Save to ini File
     Gui, MainFWTGui:Add, Button, w272, Exit Script
-    Gui, MainFWTGui:Show,, %FileName% v%Version%%SubVer%    By: %FikerDiscord%
+    Gui, MainFWTGui:Show, x%MainGuiX% y%MainGuiY%, %FileName% v%Version%%SubVer%    By: %FikerDiscord%
 Return
 
 CharNoteCount:
@@ -360,10 +360,10 @@ MainFWTGuiButtonLoadTheme:
     }
 Return
 
-MainFWTGuiButtonVersion1.0.0:
+MainFWTGuiButtonVersion1.0.0-28/09/2022:
     MsgBox,
     (
-        27/09/2022 - Version 1.0.0 (The Release Date)
+        28/09/2022 - Version 1.0.0 (The Release Date)
     
     (26/09/2022)
     - Added the GUI.
@@ -778,7 +778,7 @@ LoadFWTStopwatchGui:
     Gui, FWTStopwatchGui:Font, s8
     Gui, FWTStopwatchGui:Add, Button, x14 w225, Reset and Log Stopwatch
     Gui, FWTStopwatchGui:Add, Button, w225, Close GUI and Keep Stopwatch Running
-    Gui, FWTStopwatchGui:Show,, FWT Stopwatch
+    Gui, FWTStopwatchGui:Show, x%StopwatchGuiX% y%StopwatchGuiY% , FWT Stopwatch
     SetTimer, StopwatchFWT, 1000
 Return
 
@@ -844,7 +844,12 @@ YesStopwatchGuiClose:
     IniWrite, %StopwatchGuiX%, %IniFileName%, Preferences, StopwatchGuiX
     IniWrite, %StopwatchGuiY%, %IniFileName%, Preferences, StopwatchGuiY
     Gui, FWTStopwatchGui:Submit
+    Sec = 00
+    Min = 00
+    Hrs = 00
+    StopwatchTime = 00:00:00
     SetTimer, StopwatchFWT, Off
+    SetTimer, TooltipStopwatch, Off
     SetTimer, KillTooltip, %TooltipTimer%
 Return
 NoStopwatchGuiClose:

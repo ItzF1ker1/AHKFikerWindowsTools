@@ -1,4 +1,4 @@
-﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 /*
 
         Welcome to Fiker Windows Tools
@@ -382,6 +382,10 @@ MainFWTGuiButtonVersion1.0.0:
     - Added custom tray menu.
     - Added custom icon.
     )
+Return
+
+MainFWTGuiButtonScriptSourceCode:
+    Run, https://github.com/ItzF1ker1/AHKFikerWindowsTools
 Return
 
 ToMyWebsite:

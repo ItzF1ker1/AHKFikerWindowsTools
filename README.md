@@ -22,4 +22,4 @@ Fiker Windows Tools is a simple windows tool made in AutoHotkey language that en
 ![About Tab](https://raw.githubusercontent.com/ItzF1ker1/AHKFikerWindowsTools/main/ReadmeAssets/FWTAboutTab.png)
 
 # Video Showcase
-*soon*
+[![Showcase](https://i.ytimg.com/vi/UfuII-v-pfI/sddefault.jpg)](https://youtu.be/UfuII-v-pfI)

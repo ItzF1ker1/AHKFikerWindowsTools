@@ -2,7 +2,7 @@
 /*
 
         Welcome to Fiker Windows Tools
-          Version 1.0.0 Source Code!
+          Version 1.1.4 Source Code!
 
 */
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -35,12 +35,12 @@ FikerDiscord = ItzF1ker1#1106
 Version = 1.0
 SubVer = .0
 FolderPath = %A_ScriptDir%
-IniFileName = FWTv1.0.0-Settings.ini
+IniFileName = FWTv1.1.4-Settings.ini
 IniFilePath = %FolderPath%\%IniFileName%
 
 if !FileExist(IniFilePath)
 	{
-    Msgbox, 0x40044, %FileName% v%Version%%SubVer% By: %FikerDiscord%, I couldn't find the settings files named "%IniFileName%"!`nMake sure it's in the same folder as this script.`n`nIf you just updated %FileName% to version %Version%%SubVer% you can rename the old file to "%IniFileName%"`nbut the script will probably broke if there's some pretty big update so I don't really recommend it.`n`nIf you just downloaded this script or lost the ini file,`nDo you want to create a new file with the default settings?`n`nScript file location:`n%FolderPath%`nIf you select No, the script will exit.
+    Msgbox, 0x40044, %FileName%, I couldn't find the settings files named "%IniFileName%"!`nMake sure it's in the same folder as this script.`n`nIf you just updated %FileName% to version %Version%%SubVer% you can rename the old file to "%IniFileName%"`nbut the script will probably broke if there's some pretty big update so I don't really recommend it.`n`nIf you just downloaded this script or lost the ini file,`nDo you want to create a new file with the default settings?`n`nScript file location:`n%FolderPath%`nIf you select No, the script will exit.
 	IfMsgBox Yes
 		{
             FileAppend,
@@ -71,7 +71,7 @@ GuiFontColor =FFFFFF
 
 if !FileExist("FWT_MainIcon.ico")
     {
-    MsgBox, 0x40044, %FileName% v%Version%%SubVer% By: %FikerDiscord%, There's no icon image of %FileName%, do you want to download it?
+    MsgBox, 0x40044, %FileName%, There's no icon image of %FileName%, do you want to download it?
     IfMsgBox, Yes
         {
             UrlDownloadToFile, https://cdn.discordapp.com/attachments/930426105171681301/1024615066710065202/FWT_MainIcon.ico, %FolderPath%\FWT_MainIcon.ico
@@ -83,10 +83,58 @@ if !FileExist("FWT_MainIcon.ico")
         }
     IfMsgBox, No
         {
+            Menu, Tray, NoStandard
+            Menu, Tray, Add
+            Menu, Tray, Add
+            Menu, Tray, Add         , %FileName% v%Version%%SubVer%, FWTTrayMenu
+            Menu, Tray, Add
+            Menu, Tray, Add         , &Open Main GUI, FWTTrayMenu
+            Menu, Tray, Add         , &Open Stopwatch GUI, FWTTrayMenu
+            Menu, Tray, Add
+            Menu, Tray, Add         , &Toggle Cursor Mover, FWTTrayMenu
+            Menu, Tray, Add         , &Toggle Screen Zoomer, FWTTrayMenu
+            Menu, Tray, Add         , &Toggle Window Transparency, FWTTrayMenu
+            Menu, Tray, Add
+            Menu, Tray, Add         , &Suspend Script, FWTTrayMenu
+            Menu, Tray, Add         , &Pause Script, FWTTrayMenu
+            Menu, Tray, Add
+            Menu, Tray, Add         , &Reload Script, FWTTrayMenu
+            Menu, Tray, Add         , E&xit Script, FWTTrayMenu
+            Menu, Tray, Default     , E&xit Script
+            Menu, Tray, Add
+            Menu, Tray, Add
+            Menu, Tray, Icon        , FWT_MainIcon.ico
+            Menu, Tray, Check       , &Toggle Cursor Mover
+            Menu, Tray, Check       , &Toggle Screen Zoomer
+            Menu, Tray, Check       , &Toggle Window Transparency
             Goto, FWTStart
         }
     } else {
-        Menu, Tray, Icon, FWT_MainIcon.ico
+        Menu, Tray, NoStandard
+        Menu, Tray, Icon        , FWT_MainIcon.ico
+        Menu, Tray, Add
+        Menu, Tray, Add
+        Menu, Tray, Add         , %FileName% v%Version%%SubVer%, FWTTrayMenu
+        Menu, Tray, Add
+        Menu, Tray, Add         , &Open Main GUI, FWTTrayMenu
+        Menu, Tray, Add         , &Open Stopwatch GUI, FWTTrayMenu
+        Menu, Tray, Add
+        Menu, Tray, Add         , &Toggle Cursor Mover, FWTTrayMenu
+        Menu, Tray, Add         , &Toggle Screen Zoomer, FWTTrayMenu
+        Menu, Tray, Add         , &Toggle Window Transparency, FWTTrayMenu
+        Menu, Tray, Add
+        Menu, Tray, Add         , &Suspend Script, FWTTrayMenu
+        Menu, Tray, Add         , &Pause Script, FWTTrayMenu
+        Menu, Tray, Add
+        Menu, Tray, Add         , &Reload Script, FWTTrayMenu
+        Menu, Tray, Add         , E&xit Script, FWTTrayMenu
+        Menu, Tray, Default     , E&xit Script
+        Menu, Tray, Add
+        Menu, Tray, Add
+        Menu, Tray, Icon        , FWT_MainIcon.ico
+        Menu, Tray, Check       , &Toggle Cursor Mover
+        Menu, Tray, Check       , &Toggle Screen Zoomer
+        Menu, Tray, Check       , &Toggle Window Transparency
         Goto, FWTStart
     }
 Return
@@ -97,7 +145,7 @@ FWTStart:
         Gui, StartFWT:Add, Text, x10 y15, %FileName% Sucessfully Activated!`nVersion: %Version%%SubVer%`n`n`nAHK by %FikerDiscord%
         Gui, StartFWT:Add, Button, default xm x170 y110 w50 gYesStartFWT, Start
         Gui, StartFWT:Add, Button, x240 y110 w50 gNoStartFWT, Exit
-        Gui, StartFWT:Show, h150 w300, %Filename% v%Version%%SubVer% By: %FikerDiscord%
+        Gui, StartFWT:Show, h150 w300, %Filename%
     Return
     YesStartFWT:
         Gui, StartFWT:Destroy
@@ -105,7 +153,7 @@ FWTStart:
         Gui, LoadFWT:Font, s18
         Gui, LoadFWT:Add, Text, x10 w300 vLoadingText, %LoadingText%
         Gui, LoadFWT:Add, Progress, BackgroundCACACA h20 w279 x10 y120 vLoadFWT -Smooth, 0
-        Gui, LoadFWT:Show, h150 w300, %Filename% v%Version%%SubVer% By: %FikerDiscord%
+        Gui, LoadFWT:Show, h150 w300, %Filename%
         ; Read ini file
         ; Cursor Mover ;
         GuiControl,, LoadingText, Loading Cursor Mover...
@@ -169,6 +217,8 @@ FWTStart:
         GuiControl,, LoadFWT, +1
         TxtNoteCount =38 Characters
         GuiControl,, LoadFWT, +1
+        ToggleTooltipStopwatch = 1
+        GuiControl,, LoadFWT, +1
         Hrs :="00"
         GuiControl,, LoadFWT, +1
         Min :="00"
@@ -179,7 +229,6 @@ FWTStart:
         GuiControl,, LoadFWT, +1
         GuiControl,, LoadingText, Loading Gui...
         Gosub, LoadMainFWTGui
-        Gosub, LoadFWTTrayMenu
     Return
     NoStartFWT:
         Gui, StartFWT:Destroy
@@ -196,9 +245,10 @@ Return
 
 LoadMainFWTGui:
     GuiControl,, LoadingText, Finished!
-    GuiControl,, LoadFWT, +70
+    GuiControl,, LoadFWT, +69
     Sleep, 1000
     Gui, LoadFWT:Destroy
+    Gui, MainFWTGui:Destroy
     Gui, MainFWTGui:New,, MainFWTGui
     Gui, MainFWTGui:Color, %GuiColor%
     Gui, MainFWTGui:Font, c%GuiFontColor%
@@ -288,6 +338,7 @@ LoadMainFWTGui:
     Gui, MainFWTGui:Add, Text, x22 y85 c%GuiColorFont%, Current Version: %Version%%SubVer%
     Gui, MainFWTGui:Font, s12
     Gui, MainFWTGui:Add, Button, w524, Version 1.0.0 - 28/09/2022
+    Gui, MainFWTGui:Add, Button, w524, Version 1.1.4 - 28/09/2022
     Gui, MainFWTGui:Tab, 6 ; About Tab
     Gui, MainFWTGui:Add, Text, x24 y44 c%GuiColorFont%, About
     Gui, MainFWTGui:Font, s20
@@ -302,12 +353,13 @@ LoadMainFWTGui:
     Gui, MainFWTGui:Add, Button, x22 y335 w523 gToMyWebsite, Click to redirect you to my stuffs (def not bring u to phishing site)
     Gui, Tab ; Applies to All Tab
     Gui, MainFWTGui:Font, s8
-    Gui, MainFWTGui:Add, Button, x10 y390 w550 gLoadFWTStopwatchGui, Open Tooltip Stopwatch
+    Gui, MainFWTGui:Add, Button, x10 y390 w272 gLoadFWTStopwatchGui, Open Tooltip Stopwatch
     Gui, MainFWTGui:Add, Button, w272, Load Default Settings
     Gui, MainFWTGui:Add, Button, w272, Reload Script
-    Gui, MainFWTGui:Add, Button, x288 y419 w272, Save to ini File
+    Gui, MainFWTGui:Add, Button, x288 y390 w272, Hide Main GUI
+    Gui, MainFWTGui:Add, Button, w272, Save to ini File
     Gui, MainFWTGui:Add, Button, w272, Exit Script
-    Gui, MainFWTGui:Show, x%MainGuiX% y%MainGuiY%, %FileName% v%Version%%SubVer%    By: %FikerDiscord%
+    Gui, MainFWTGui:Show, x%MainGuiX% y%MainGuiY%, %FileName% Main Gui
 Return
 
 CharNoteCount:
@@ -383,6 +435,17 @@ MainFWTGuiButtonVersion1.0.0-28/09/2022:
     - Added custom icon.
     )
 Return
+MainFWTGuiButtonVersion1.1.4-28/09/2022:
+    MsgBox,
+    (
+        17/10/2022 - Version 1.1.4 (small update)
+    
+    - Added option to hide Main GUI.
+    - Added option to hide stopwatch tooltip.
+    - Cleaner title.
+    - Fixed some bugs I guess.
+    )
+Return
 
 MainFWTGuiButtonScriptSourceCode:
     Run, https://github.com/ItzF1ker1/AHKFikerWindowsTools
@@ -390,6 +453,10 @@ Return
 
 ToMyWebsite:
     Run, %FikerStuff%
+Return
+
+MainFWTGuiButtonHideMainGUI:
+    Gui, Submit
 Return
 
 MainFWTGuiButtonSavetoiniFile:
@@ -404,7 +471,7 @@ MainFWTGuiButtonSavetoiniFile:
     Gui, FWTSaveToIni:Add, Text, x10 y15, Are you sure you want to save the current setting`nto %IniFileName%?`n`nThis will overwrite`nthe old settings with this new one.
     Gui, FWTSaveToIni:Add, Button, default xm x170 y110 w50 gYesSaveToIni, Save
     Gui, FWTSaveToIni:Add, Button, x240 y110 w50 gNoSaveToIni, No
-    Gui, FWTSaveToIni:Show, h150 w300, %Filename% v%Version%%SubVer% By: %FikerDiscord%
+    Gui, FWTSaveToIni:Show, h150 w300, %Filename%
 Return
 YesSaveToIni:
     Gui, FWTSaveToIni:Destroy
@@ -438,7 +505,7 @@ MainFWTGuiButtonLoadDefaultSettings:
     Gui, FWTLoadDefault:Add, Text, x10 y15, Are you sure you want to load the default setting`nto %IniFileName%?`n`nThis will overwrite`nthe old settings with the default one.`nAnd also will reload the script as well.
     Gui, FWTLoadDefault:Add, Button, default xm x170 y130 w50 gYesLoadDefault, Load
     Gui, FWTLoadDefault:Add, Button, x240 y130 w50 gNoLoadDefault, No
-    Gui, FWTLoadDefault:Show, h170 w300, %Filename% v%Version%%SubVer% By: %FikerDiscord%
+    Gui, FWTLoadDefault:Show, h170 w300, %Filename%
 Return
 YesLoadDefault:
     Gui, Submit
@@ -465,7 +532,7 @@ Return
 Return
 
 MainFWTGuiButtonReloadScript:
-    WinGetPos, MainGuiX, MainGuiY,,, %FileName% v%Version%%SubVer%    By: %FikerDiscord%
+    WinGetPos, MainGuiX, MainGuiY,,, %FileName% Main Gui
     IniWrite, %MainGuiX%, %IniFileName%, Preferences, MainGuiX
     IniWrite, %MainGuiY%, %IniFileName%, Preferences, MainGuiY
     Reload
@@ -484,7 +551,7 @@ MainFWTGuiButtonExitScript:
     Gui, FWTGuiClose:Font, s10
     Gui, FWTGuiClose:Add, Button, default xm x170 y50 w50 gYesGuiClose, Yes
     Gui, FWTGuiClose:Add, Button, x240 y50 w50 gNoGuiClose, No
-    Gui, FWTGuiClose:Show, h90 w300, %Filename% v%Version%%SubVer% By: %FikerDiscord%
+    Gui, FWTGuiClose:Show, h90 w300, %Filename%
 Return
 
 MainFWTGuiGuiClose:
@@ -501,11 +568,11 @@ MainFWTGuiGuiEscape:
     Gui, FWTGuiClose:Font, s10
     Gui, FWTGuiClose:Add, Button, default xm x170 y50 w50 gYesGuiClose, Yes
     Gui, FWTGuiClose:Add, Button, x240 y50 w50 gNoGuiClose, No
-    Gui, FWTGuiClose:Show, h90 w300, %Filename% v%Version%%SubVer% By: %FikerDiscord%
+    Gui, FWTGuiClose:Show, h90 w300, %Filename%
 Return
 YesGuiClose:
     Gui, FWTGuiClose:Destroy
-    WinGetPos, MainGuiX, MainGuiY,,, %FileName% v%Version%%SubVer%    By: %FikerDiscord%
+    WinGetPos, MainGuiX, MainGuiY,,, %FileName% Main Gui
     IniWrite, %MainGuiX%, %IniFileName%, Preferences, MainGuiX
     IniWrite, %MainGuiY%, %IniFileName%, Preferences, MainGuiY
     ExitApp
@@ -538,6 +605,7 @@ x & WheelUp:: ; X + Scroll Up
     Return
     }
     if (ToggleCursorMover = 0) {
+    SendInput, x
     Return
 }
 
@@ -557,6 +625,7 @@ z & WheelUp:: ; Z + Scroll Up
     Return
     }
     if (ToggleCursorMover = 0) {
+    SendInput, z
     Return
 }
 
@@ -576,6 +645,7 @@ z & WheelDown:: ; Z + Scroll Down
     Return
     }
     if (ToggleCursorMover = 0) {
+    SendInput, z
     Return
 }
 
@@ -595,11 +665,14 @@ x & WheelDown:: ; X + Scroll Down
     Return
     }
     if (ToggleCursorMover = 0) {
+    SendInput, x
     Return
 }
 
-x::x
-z::z
+if (ToggleCursorMover = 1) {
+    x::x
+    z::z
+}
 ; Cursor Mover
 
 ; Screen Zoomer
@@ -778,8 +851,10 @@ LoadFWTStopwatchGui:
     Gui, FWTStopwatchGui:Font, s8
     Gui, FWTStopwatchGui:Add, Button, x14 w225, Reset and Log Stopwatch
     Gui, FWTStopwatchGui:Add, Button, w225, Close GUI and Keep Stopwatch Running
+    Gui, FWTStopwatchGui:Add, Checkbox, gHideStopwatchTooltip Checked, Hide Stopwatch Tooltip
     Gui, FWTStopwatchGui:Show, x%StopwatchGuiX% y%StopwatchGuiY% , FWT Stopwatch
     SetTimer, StopwatchFWT, 1000
+    SetTimer, TooltipStopwatch, 10
 Return
 
 StopwatchFWT:
@@ -798,7 +873,6 @@ StopwatchFWT:
     StopwatchTime = %Hrs%:%Min%:%Sec%
     WinGetActiveTitle, ActiveStopwatchWindow
     GuiControl,, StopwatchTime, %StopwatchTime%
-    SetTimer, TooltipStopwatch, 10
 Return
 
 TooltipStopwatch:
@@ -822,6 +896,18 @@ FWTStopwatchGuiButtonCloseGUIandKeepStopwatchRunning:
     Gui, FWTStopwatchGui:Submit
 Return
 
+HideStopwatchTooltip:
+    Gui, FWTStopwatchGui:Submit, NoHide
+    ToggleTooltipStopwatch := !ToggleTooltipStopwatch
+    if (ToggleTooltipStopwatch = 1) {
+        SetTimer, TooltipStopwatch, 10
+    }
+    if (ToggleTooltipStopwatch = 0) {
+        SetTimer, TooltipStopwatch, Off
+        Tooltip,
+    }
+Return
+
 FWTStopwatchGuiGuiClose:
 FWTStopwatchGuiGuiEscape:
     Gui, FWTLoadDefault:Destroy
@@ -836,7 +922,7 @@ FWTStopwatchGuiGuiEscape:
     Gui, FWTStopwatchGuiClose:Font, s10
     Gui, FWTStopwatchGuiClose:Add, Button, x230 y50 w50 gYesStopwatchGuiClose, Yes
     Gui, FWTStopwatchGuiClose:Add, Button, x300 y50 w50 gNoStopwatchGuiClose, No
-    Gui, FWTStopwatchGuiClose:Show, h90 w360, %Filename% v%Version%%SubVer% Stopwatch By: %FikerDiscord%
+    Gui, FWTStopwatchGuiClose:Show, h90 w360, %Filename% Stopwatch
 Return
 YesStopwatchGuiClose:
     Gui, FWTStopwatchGuiClose:Destroy
@@ -863,33 +949,10 @@ Return
 
 ;                Script Stuff                ;
 
-LoadFWTTrayMenu:
-    Menu, Tray, NoStandard
-    Menu, Tray, Add
-    Menu, Tray, Add
-    Menu, Tray, Add         , %FileName% v%Version%%SubVer%, FWTTrayMenu
-    Menu, Tray, Add
-    Menu, Tray, Add         , &Open Stopwatch GUI, FWTTrayMenu
-    Menu, Tray, Add
-    Menu, Tray, Add         , &Toggle Cursor Mover, FWTTrayMenu
-    Menu, Tray, Add         , &Toggle Screen Zoomer, FWTTrayMenu
-    Menu, Tray, Add         , &Toggle Window Transparency, FWTTrayMenu
-    Menu, Tray, Add
-    Menu, Tray, Add         , &Suspend Tool, FWTTrayMenu
-    Menu, Tray, Add         , &Pause Tool, FWTTrayMenu
-    Menu, Tray, Add
-    Menu, Tray, Add         , &Reload Tool, FWTTrayMenu
-    Menu, Tray, Add         , E&xit Tool, FWTTrayMenu
-    Menu, Tray, Default     , E&xit Tool
-    Menu, Tray, Add
-    Menu, Tray, Add
-    Menu, Tray, Icon        , FWT_MainIcon.ico
-    Menu, Tray, Check       , &Toggle Cursor Mover
-    Menu, Tray, Check       , &Toggle Screen Zoomer
-    Menu, Tray, Check       , &Toggle Window Transparency
-Return
-
 FWTTrayMenu:
+    if (A_ThisMenuItem = "&Open Main GUI") {
+        Gosub, LoadMainFWTGui
+    }
     if (A_ThisMenuItem = "&Open Stopwatch GUI") {
         Gosub, LoadFWTStopwatchGui
     }
@@ -902,16 +965,16 @@ FWTTrayMenu:
     if (A_ThisMenuItem = "&Toggle Window Transparency") {
         Gosub, DoToggleWindowTransparency
     }
-    if (A_ThisMenuItem = "&Suspend Tool") {
+    if (A_ThisMenuItem = "&Suspend Script") {
         Gosub, ToggleSuspend
     }
-    if (A_ThisMenuItem = "&Pause Tool") {
+    if (A_ThisMenuItem = "&Pause Script") {
         Gosub, TogglePause
     }
-    if (A_ThisMenuItem = "&Reload Tool") {
+    if (A_ThisMenuItem = "&Reload Script") {
         Gosub, MainFWTGuiButtonReloadScript
     }
-    if (A_ThisMenuItem = "E&xit Tool") {
+    if (A_ThisMenuItem = "E&xit Script") {
         Gosub, MainFWTGuiButtonExitScript
     }
 Return
@@ -919,18 +982,18 @@ Return
 ToggleSuspend:
     if (A_IsSuspended) {
         Suspend, Off
-        Menu, Tray, Uncheck, &Suspend Tool
+        Menu, Tray, Uncheck, &Suspend Script
     } else {
-        Menu, Tray, Check, &Suspend Tool
+        Menu, Tray, Check, &Suspend Script
         Suspend, On
     }
 Return
 TogglePause:
     if (A_IsPaused) {
         Pause, Off
-        Menu, Tray, Uncheck, &Pause Tool
+        Menu, Tray, Uncheck, &Pause Script
     } else {
-        Menu, Tray, Check, &Pause Tool
+        Menu, Tray, Check, &Pause Script
         Pause, On
     }
 Return
@@ -941,7 +1004,7 @@ Return
 /*
 
           The End of The Source Code
-     of Fiker Windows Tools Version 1.0.0.
+     of Fiker Windows Tools Version 1.1.4.
 
 */
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -2,7 +2,7 @@
 /*
 
         Welcome to Fiker Windows Tools
-          Version 1.1.4 Source Code!
+          Version 1.1.5 Source Code!
 
 */
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,10 +32,10 @@ FormatTime, CurrentDateAndTime,, M.dd.yyyy hh.mm.ss tt
 FileName = Fiker Windows Tools
 FikerStuff = https://myurls.bio/itzf1ker1
 FikerDiscord = ItzF1ker1#1106
-Version = 1.0
-SubVer = .0
+Version = 1.1
+SubVer = .5
 FolderPath = %A_ScriptDir%
-IniFileName = FWTv1.1.4-Settings.ini
+IniFileName = FWTv1.1.5-Settings.ini
 IniFilePath = %FolderPath%\%IniFileName%
 
 if !FileExist(IniFilePath)
@@ -1004,7 +1004,7 @@ Return
 /*
 
           The End of The Source Code
-     of Fiker Windows Tools Version 1.1.4.
+     of Fiker Windows Tools Version 1.1.5.
 
 */
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

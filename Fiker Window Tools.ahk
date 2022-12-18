@@ -2,7 +2,7 @@
 /*
 
         Welcome to Fiker Windows Tools
-          Version 1.1.5 Source Code!
+          Version 1.2.0 Source Code!
 
 */
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,10 +32,10 @@ FormatTime, CurrentDateAndTime,, M.dd.yyyy hh.mm.ss tt
 FileName = Fiker Windows Tools
 FikerStuff = https://myurls.bio/itzf1ker1
 FikerDiscord = ItzF1ker1#1106
-Version = 1.1
-SubVer = .5
+Version = 1.2
+SubVer = .0
 FolderPath = %A_ScriptDir%
-IniFileName = FWTv1.1.5-Settings.ini
+IniFileName = FWTv1.2.0-Settings.ini
 IniFilePath = %FolderPath%\%IniFileName%
 
 if !FileExist(IniFilePath)
@@ -54,6 +54,7 @@ CursorRight =1
 [WindowTransparent]
 TransAdd =1
 TransMin =1
+WinTransMin =10
 
 [Preferences]
 TooltipTimer =1000
@@ -171,6 +172,8 @@ FWTStart:
         GuiControl,, LoadFWT, +1
         IniRead, TransMin, %IniFileName%, WindowTransparent, TransMin
         GuiControl,, LoadFWT, +1
+        IniRead, WinTransMin, %IniFileName%, WindowTransparent, WinTransMin
+        GuiControl,, LoadFWT, +1
         ; Preferences ;
         GuiControl,, LoadingText, Loading Preferences...
         IniRead, TooltipTimer, %IniFileName%, Preferences, TooltipTimer
@@ -245,7 +248,7 @@ Return
 
 LoadMainFWTGui:
     GuiControl,, LoadingText, Finished!
-    GuiControl,, LoadFWT, +69
+    GuiControl,, LoadFWT, +68
     Sleep, 1000
     Gui, LoadFWT:Destroy
     Gui, MainFWTGui:Destroy
@@ -298,8 +301,10 @@ LoadMainFWTGui:
     Gui, MainFWTGui:Font, s12
     Gui, MainFWTGui:Add, Text, y+8 c%GuiColorFont%, Add Transparent:
     Gui, MainFWTGui:Add, Text, x+12 c%GuiColorFont%, Min Transparent:
+    Gui, MainFWTGui:Add, Text, x+12 c%GuiColorFont%, Min Window Transparent:
     Gui, MainFWTGui:Add, Edit, x22 y+8 c000000 gVarEdit vTransAdd r1 w122 Number, %TransAdd%
     Gui, MainFWTGui:Add, Edit, x+15 c000000 gVarEdit vTransMin r1 w116 Number, %TransMin%
+    Gui, MainFWTGui:Add, Edit, x+15 c000000 gVarEdit vWinTransMin r1 w116 Number, %WinTransMin%
     Gui, MainFWTGui:Tab, 3 ; Note Tab
     Gui, MainFWTGui:Font, s20
     Gui, MainFWTGui:Add, Text, c%GuiColorFont%, %FileName%
@@ -338,7 +343,9 @@ LoadMainFWTGui:
     Gui, MainFWTGui:Add, Text, x22 y85 c%GuiColorFont%, Current Version: %Version%%SubVer%
     Gui, MainFWTGui:Font, s12
     Gui, MainFWTGui:Add, Button, w524, Version 1.0.0 - 28/09/2022
-    Gui, MainFWTGui:Add, Button, w524, Version 1.1.4 - 28/09/2022
+    Gui, MainFWTGui:Add, Button, w524, Version 1.1.4 - 17/10/2022
+    Gui, MainFWTGui:Add, Button, w524, Version 1.1.5 - 04/12/2022
+    Gui, MainFWTGui:Add, Button, w524, Version 1.2.0 - 18/12/2022
     Gui, MainFWTGui:Tab, 6 ; About Tab
     Gui, MainFWTGui:Add, Text, x24 y44 c%GuiColorFont%, About
     Gui, MainFWTGui:Font, s20
@@ -435,7 +442,7 @@ MainFWTGuiButtonVersion1.0.0-28/09/2022:
     - Added custom icon.
     )
 Return
-MainFWTGuiButtonVersion1.1.4-28/09/2022:
+MainFWTGuiButtonVersion1.1.4-17/10/2022:
     MsgBox,
     (
         17/10/2022 - Version 1.1.4 (small update)
@@ -444,6 +451,24 @@ MainFWTGuiButtonVersion1.1.4-28/09/2022:
     - Added option to hide stopwatch tooltip.
     - Cleaner title.
     - Fixed some bugs I guess.
+    )
+Return
+MainFWTGuiButtonVersion1.1.5-04/12/2022:
+    MsgBox,
+    (
+        04/12/2022 - Version 1.1.5 (another very small update)
+    
+    - Fixed some visual bugs.
+    - Made a new lite version without all the extra features.
+    )
+Return
+MainFWTGuiButtonVersion1.2.0-18/12/2022:
+    MsgBox,
+    (
+        04/12/2022 - Version 1.2.0 (also small update, lets just crank this to 1.2.0)
+    
+    - Costumizeable Minimal Window Transparency.
+    - Added Suspend ON hotkey by pressing Win + Alt + F.
     )
 Return
 
@@ -481,6 +506,7 @@ YesSaveToIni:
         IniWrite, %CursorRight%, %IniFileName%, CursorMover, CursorRight
         IniWrite, %TransAdd%, %IniFileName%, WindowTransparent, TransAdd
         IniWrite, %TransMin%, %IniFileName%, WindowTransparent, TransMin
+        IniWrite, %WinTransMin%, %IniFileName%, WindowTransparent, WinTransMin
         IniWrite, %TooltipTimer%, %IniFileName%, Preferences, TooltipTimer
         IniWrite, %MainGuiX%, %IniFileName%, Preferences, MainGuiX
         IniWrite, %MainGuiY%, %IniFileName%, Preferences, MainGuiY
@@ -515,6 +541,7 @@ YesLoadDefault:
         IniWrite, 1, %IniFileName%, CursorMover, CursorRight
         IniWrite, 1, %IniFileName%, WindowTransparent, TransAdd
         IniWrite, 1, %IniFileName%, WindowTransparent, TransMin
+        IniWrite, 10, %IniFileName%, WindowTransparent, WinTransMin
         IniWrite, 1000, %IniFileName%, Preferences, TooltipTimer
         IniWrite, 667, %IniFileName%, Preferences, MainGuiX
         IniWrite, 262, %IniFileName%, Preferences, MainGuiY
@@ -745,8 +772,8 @@ if (ToggleCursorMover = 1) {
 *$#WheelDown:: ; Window Key + Scroll Down
         if (ToggleWindowTransparency = 1) {
         Transparency -= %TransMin%
-        if (Transparency <= 10) {
-            Transparency = 10
+        if (Transparency <= WinTransMin) {
+            Transparency = %WinTransMin%
         }
         WinSet, Transparent, %Transparency%, A
         WinGetActiveTitle, WinActive
@@ -998,13 +1025,18 @@ TogglePause:
     }
 Return
 
+*$#!F::
+    TrayTip, Win + Alt + F Executed., %FileName% v%Version%%SubVer%, 1, 16
+    Gosub, ToggleSuspend
+Return
+
 ;                Script Stuff                ;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 /*
 
           The End of The Source Code
-     of Fiker Windows Tools Version 1.1.5.
+     of Fiker Windows Tools Version 1.2.0.
 
 */
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

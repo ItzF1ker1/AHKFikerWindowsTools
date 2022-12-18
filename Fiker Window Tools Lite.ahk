@@ -2,7 +2,7 @@
 /*
 
         Welcome to Fiker Windows Tools
-          Version 1.1.5 Source Code!
+          Version 1.2.0 Source Code!
 
 */
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,10 +32,10 @@ FormatTime, CurrentDateAndTime,, M.dd.yyyy hh.mm.ss tt
 FileName = FWT Lite
 FikerStuff = https://fiker1.carrd.co/
 FikerDiscord = ItzF1ker1#1106
-Version = 1.1
-SubVer = .4
+Version = 1.2
+SubVer = .0
 FolderPath = %A_ScriptDir%
-IniFileName = FWTv1.1.5-Settings.ini
+IniFileName = FWTLitev1.2.0-Settings.ini
 IniFilePath = %FolderPath%\%IniFileName%
 
 if !FileExist(IniFilePath)
@@ -54,6 +54,7 @@ CursorRight =1
 [WindowTransparent]
 TransAdd =1
 TransMin =1
+WinTransMin =10
 
 [Preferences]
 TooltipTimer =1000
@@ -147,6 +148,7 @@ FWTStart:
     ; WindowTransparent ;
     IniRead, TransAdd, %IniFileName%, WindowTransparent, TransAdd
     IniRead, TransMin, %IniFileName%, WindowTransparent, TransMin
+    IniRead, WinTransMin, %IniFileName%, WindowTransparent, WinTransMin
     ; Preferences ;
     IniRead, TooltipTimer, %IniFileName%, Preferences, TooltipTimer
     ; Read Variables
@@ -280,7 +282,7 @@ if (ToggleCursorMover = 1) {
         }
         WinSet, Transparent, %Transparency%, A
         WinGetActiveTitle, WinActive
-        Tooltip, %WinActive%`n%Transparency% (+%TransAdd%).
+        Tooltip, %WinActive%`n%WinTransMin% - %Transparency% (+%TransAdd%).
         SetTimer KillTooltip, %TooltipTimer%
     Return
     }
@@ -291,12 +293,12 @@ if (ToggleCursorMover = 1) {
 *$#WheelDown:: ; Window Key + Scroll Down
         if (ToggleWindowTransparency = 1) {
         Transparency -= %TransMin%
-        if (Transparency <= 10) {
-            Transparency = 10
+        if (Transparency <= WinTransMin) {
+            Transparency = %WinTransMin%
         }
         WinSet, Transparent, %Transparency%, A
         WinGetActiveTitle, WinActive
-        Tooltip, %WinActive%`n%Transparency% (-%TransMin%).
+        Tooltip, %WinActive%`n%WinTransMin% - %Transparency% (-%TransMin%).
         SetTimer KillTooltip, %TooltipTimer%
     Return
     }
@@ -426,6 +428,11 @@ FWTTrayMenu:
         Gui, changeWinTrans:Add, Edit, vTransAdd r1 w300 Number, %TransAdd%
         Gui, changeWinTrans:Add, Text,, Min Transparency:
         Gui, changeWinTrans:Add, Edit, vTransMin r1 w300 Number, %TransMin%
+        Gui, changeWinTrans:Add, Text,, Min Window Transparency:
+        Gui, changeWinTrans:Add, Edit, vWinTransMin r1 w300 Number, %WinTransMin%
+        Gui, changeWinTrans:Font, s8
+        Gui, changeWinTrans:Add, Text,, Change this at your own risk!
+        Gui, changeWinTrans:Font, s10
         Gui, changeWinTrans:Add, Button, r1 w300, Change
         Gui, Show,, Change Window Transparency
         Return
@@ -434,6 +441,7 @@ FWTTrayMenu:
             Gui, changeWinTrans:Submit
             IniWrite, %TransAdd%, %IniFileName%, WindowTransparent, TransAdd
             IniWrite, %TransMin%, %IniFileName%, WindowTransparent, TransMin
+            IniWrite, %WinTransMin%, %IniFileName%, WindowTransparent, WinTransMin
             TrayTip, Window Transparency has been changed!, %FileName% v%Version%%SubVer%, 1, 16
         Return
     }
@@ -485,9 +493,8 @@ TogglePause:
     }
 Return
 
-#!F::
+*$#!F::
     TrayTip, Win + Alt + F Executed., %FileName% v%Version%%SubVer%, 1, 16
-    Gosub, TogglePause
     Gosub, ToggleSuspend
 Return
 
@@ -497,7 +504,7 @@ Return
 /*
 
           The End of The Source Code
-     of Fiker Windows Tools Version 1.1.5.
+     of Fiker Windows Tools Version 1.2.0.
 
 */
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
